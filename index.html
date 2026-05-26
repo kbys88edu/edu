@@ -207,7 +207,7 @@
       margin-top: 18px;
       padding-top: 16px;
       border-top: 1px solid #000;
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.9;
       column-count: 2;
       column-gap: 36px;
@@ -709,6 +709,28 @@
       line-height: 1.5;
     }
 
+    .booking-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 18px;
+      padding: 10px 16px;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: background .18s ease, color .18s ease, opacity .18s ease;
+    }
+
+    .booking-button:hover {
+      background: #fff;
+      color: #000;
+      opacity: 1;
+    }
+
     .calendly-wrapper {
       margin-top: 22px;
       border-top: 1px solid #000;
@@ -820,6 +842,10 @@
           <a href="#questions">questions</a>
           <a href="#conditions">conditions</a>
           <a href="#contact">contact</a>
+
+          <a class="booking-button" href="https://calendly.com/sound-sachiekobayashi/new-meeting" target="_blank" rel="noopener">
+            réserver
+          </a>
         </nav>
 
       <div class="intro">
@@ -1286,6 +1312,8 @@
         </form>
 
         <p class="small">Vous pouvez aussi écrire directement à <a href="mailto:info@sachiekobayashi.com">info@sachiekobayashi.com</a>.</p>
+
+        
 
         <div class="calendly-wrapper">
           <p class="small">Le premier échange de 30 minutes est gratuit. Après la réservation, un lien Zoom est envoyé automatiquement par email.</p>
