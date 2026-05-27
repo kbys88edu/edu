@@ -146,6 +146,51 @@
       color: var(--bg);
     }
 
+    .image-sequence {
+      padding: 0 5vw 72px;
+      border-top: 1px solid var(--line);
+    }
+
+    .image-slideshow {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .image-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      filter: grayscale(100%);
+      animation: imageFade 12s infinite;
+    }
+
+    .image-slideshow img:nth-child(1) { animation-delay: 0s; }
+    .image-slideshow img:nth-child(2) { animation-delay: 4s; }
+    .image-slideshow img:nth-child(3) { animation-delay: 8s; }
+
+    @keyframes imageFade {
+      0% { opacity: 0; }
+      8% { opacity: 1; }
+      28% { opacity: 1; }
+      36% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .image-caption {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
     section {
       padding: 96px 5vw;
       border-top: 1px solid var(--line);
@@ -364,6 +409,15 @@
           Directed by Sachie Kobayashi<br />Composer / Artist / Educator
         </p>
       </aside>
+    </section>
+
+    <section class="image-sequence" aria-label="Atelier Composition Son visual sequence">
+      <div class="image-slideshow">
+        <img src="../images/home.jpg" alt="音と創作のためのオンラインアトリエ">
+        <img src="../images/home-2.jpg" alt="作曲・電子音響・サウンドアートの制作風景">
+        <img src="../images/home-3.jpg" alt="Atelier Composition Son の創作イメージ">
+      </div>
+      <div class="image-caption">composition / sound / electronic creation</div>
     </section>
 
     <section id="about">
