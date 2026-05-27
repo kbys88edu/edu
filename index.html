@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Atelier Composition Son</title>
+
+  <meta
+    name="description"
+    content="Online atelier for composition, electroacoustic music, and sonic research."
+  />
+
+  <link rel="alternate" hreflang="ja" href="https://ateliercompositionson.com/ja/" />
+  <link rel="alternate" hreflang="fr" href="https://ateliercompositionson.com/fr/" />
+  <link rel="alternate" hreflang="x-default" href="https://ateliercompositionson.com/" />
+
+  <style>
+    :root {
+      --bg: #f7f5ef;
+      --text: #111111;
+      --muted: #6d6a63;
+      --line: #d8d3c7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          rgba(247,245,239,0.72),
+          rgba(247,245,239,0.92)
+        ),
+        url('/images/background.jpg');
+
+      background-size: cover;
+      background-position: center;
+
+      font-family:
+        "Helvetica Neue",
+        Arial,
+        "Hiragino Sans",
+        "Yu Gothic",
+        sans-serif;
+
+      color: var(--text);
+    }
+
+    .container {
+      width: min(680px, 92vw);
+
+      padding: 64px 40px;
+
+      border: 1px solid var(--line);
+
+      background: rgba(255,253,248,0.82);
+
+      backdrop-filter: blur(12px);
+
+      text-align: center;
+    }
+
+    .logo {
+      width: 86px;
+      height: 86px;
+
+      object-fit: contain;
+
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+
+      font-size: clamp(32px, 5vw, 64px);
+
+      font-weight: 400;
+
+      line-height: 1.05;
+
+      letter-spacing: -0.05em;
+    }
+
+    p {
+      margin: 0 auto;
+
+      max-width: 560px;
+
+      color: var(--muted);
+
+      line-height: 1.9;
+
+      font-size: 15px;
+    }
+
+    .languages {
+      margin-top: 48px;
+
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .languages a {
+      display: inline-block;
+
+      min-width: 140px;
+
+      padding: 14px 22px;
+
+      border: 1px solid var(--text);
+
+      color: var(--text);
+
+      text-decoration: none;
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .languages a:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .small {
+      margin-top: 40px;
+
+      font-size: 12px;
+
+      letter-spacing: 0.14em;
+
+      text-transform: uppercase;
+
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 52px 24px;
+      }
+
+      .languages {
+        flex-direction: column;
+      }
+
+      .languages a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <img
+      class="logo"
+      src="/images/logo.png"
+      alt="Atelier Composition Son"
+    />
+
+    <h1>Atelier Composition Son</h1>
+
+    <p>
+      音・作曲・電子音響のためのオンラインアトリエ<br>
+      Atelier en ligne dédié à la composition, à la musique électroacoustique et à la recherche sonore
+    </p>
+
+    <div class="languages">
+      <a href="/ja/">日本語</a>
+      <a href="/fr/">Français</a>
+    </div>
+
+    <div class="small">
+      Composition / Sound / Research
+    </div>
+
+  </main>
+</body>
+</html>
