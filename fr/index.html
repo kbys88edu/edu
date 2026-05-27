@@ -8,15 +8,8 @@
   <meta name="robots" content="index, follow">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       position: relative;
@@ -36,9 +29,7 @@
       text-underline-offset: 2px;
     }
 
-    a:hover {
-      text-decoration: none;
-    }
+    a:hover { text-decoration: none; }
 
     .page {
       position: relative;
@@ -60,7 +51,7 @@
           rgba(255,255,255,.24) 42%,
           rgba(255,255,255,.06) 58%,
           rgba(255,255,255,0) 72%),
-        url('images/header-soft.jpg');
+        url('../images/header-soft.jpg');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -81,10 +72,6 @@
       border-bottom: 1px solid #000;
       overflow: visible;
     }
-
-    
-
-    
 
     .hero-image {
       margin: 22px 0 0;
@@ -245,27 +232,6 @@
       line-height: 1.5;
     }
 
-    .header-documentation {
-      margin: 22px 0 24px;
-      border: 1px solid #000;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .header-documentation img {
-      display: block;
-      width: 100%;
-      height: 130px;
-      object-fit: cover;
-      filter: grayscale(100%);
-    }
-
-    .header-documentation figcaption {
-      padding: 7px 8px;
-      font-size: 11px;
-      line-height: 1.35;
-    }
-
     .school-name {
       display: block;
       font-family: Futura, 'Avenir Next', Avenir, Helvetica, Arial, sans-serif;
@@ -275,19 +241,6 @@
       letter-spacing: -0.03em;
       margin-bottom: 18px;
       text-transform: uppercase;
-    }
-
-    .school-name span {
-      display: block;
-    }
-
-    .school-name .thin {
-      font-size: 10px;
-      letter-spacing: .22em;
-      line-height: 1.5;
-      margin-top: 6px;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 400;
     }
 
     .logo-image {
@@ -340,9 +293,7 @@
       transform: translateX(4px);
     }
 
-    nav a:hover::after {
-      width: 100%;
-    }
+    nav a:hover::after { width: 100%; }
 
     .intro {
       position: relative;
@@ -357,9 +308,7 @@
       border: 1px solid rgba(0,0,0,.35);
     }
 
-    .intro .label {
-      margin-bottom: 18px;
-    }
+    .intro .label { margin-bottom: 18px; }
 
     .intro-title {
       font-family: Georgia, 'Times New Roman', serif;
@@ -375,13 +324,8 @@
       margin-bottom: 13px;
     }
 
-    .separator {
-      margin: 24px 0;
-    }
-
-    .separator::before {
-      content: '* * *';
-    }
+    .separator { margin: 24px 0; }
+    .separator::before { content: '* * *'; }
 
     section {
       display: grid;
@@ -396,9 +340,7 @@
       letter-spacing: .02em;
     }
 
-    .content {
-      max-width: 610px;
-    }
+    .content { max-width: 610px; }
 
     h2 {
       font-family: Georgia, 'Times New Roman', serif;
@@ -419,13 +361,8 @@
       margin-bottom: 4px;
     }
 
-    p + p {
-      margin-top: 12px;
-    }
-
-    ul {
-      list-style: none;
-    }
+    p + p { margin-top: 12px; }
+    ul { list-style: none; }
 
     .list {
       border-top: 1px solid #000;
@@ -503,9 +440,7 @@
       transition: background .18s ease, color .18s ease, opacity .18s ease;
     }
 
-    .discipline-item a:hover {
-      opacity: .82;
-    }
+    .discipline-item a:hover { opacity: .82; }
 
     .discipline-actions {
       display: flex;
@@ -514,9 +449,7 @@
       margin-top: auto;
     }
 
-    .discipline-actions a {
-      margin-top: 0;
-    }
+    .discipline-actions a { margin-top: 0; }
 
     .discipline-actions a.secondary {
       background: #000;
@@ -610,9 +543,7 @@
       padding: 8px 0;
     }
 
-    .program {
-      border-top: 1px solid #000;
-    }
+    .program { border-top: 1px solid #000; }
 
     .program li {
       display: grid;
@@ -622,9 +553,7 @@
       padding: 12px 0;
     }
 
-    .num {
-      font-variant-numeric: tabular-nums;
-    }
+    .num { font-variant-numeric: tabular-nums; }
 
     .formats {
       display: grid;
@@ -634,9 +563,7 @@
       padding-top: 14px;
     }
 
-    .format {
-      min-height: 260px;
-    }
+    .format { min-height: 260px; }
 
     .price {
       margin: 14px 0 16px;
@@ -670,26 +597,16 @@
       padding: 9px 0;
     }
 
-    details:last-child {
-      border-bottom: 1px solid #000;
-    }
+    details:last-child { border-bottom: 1px solid #000; }
 
     summary {
       cursor: pointer;
       list-style: none;
     }
 
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    summary::before {
-      content: '+ ';
-    }
-
-    details[open] summary::before {
-      content: '– ';
-    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: '+ '; }
+    details[open] summary::before { content: '– '; }
 
     details p {
       margin-top: 8px;
@@ -752,9 +669,7 @@
     }
 
     @media (max-width: 720px) {
-      .page {
-        padding: 0 14px 38px;
-      }
+      .page { padding: 0 14px 38px; }
 
       header,
       section,
@@ -771,10 +686,6 @@
         padding: 22px 0 34px;
       }
 
-      .header-background-soft {
-        opacity: .18;
-      }
-
       .intro {
         justify-self: start;
         margin-right: 0;
@@ -782,13 +693,11 @@
         background: transparent;
         border: none;
         backdrop-filter: none;
+        align-self: start;
       }
 
       .identity {
         padding-left: 0;
-      }
-
-      .identity {
         position: static;
       }
 
@@ -800,10 +709,6 @@
       nav a {
         font-size: 18px;
         padding: 0;
-      }
-
-      .intro {
-        align-self: start;
       }
 
       .formats,
@@ -824,32 +729,27 @@
 <body>
   <div class="page">
     <header id="top">
-      
-      
       <div class="identity">
-        <img class="logo-image" src="images/acs-logo.png" alt="ACS — Atelier Composition Son">
+        <img class="logo-image" src="../images/acs-logo.png" alt="ACS — Atelier Composition Son">
         <h1>Composition<br>Sound Design<br>Création Musicale</h1>
         <p>cours en ligne<br>en français</p>
-
-        
-
-        
       </div>
 
       <nav>
-          <a href="#approche">approche</a>
-          <a href="#direction">direction</a>
-          <a href="#outils">outils</a>
-          <a href="#programme">programme</a>
-          <a href="#formats">formats</a>
-          <a href="#questions">questions</a>
-          <a href="#conditions">conditions</a>
-          <a href="#contact">contact</a>
+        <a href="#approche">approche</a>
+        <a href="#direction">direction</a>
+        <a href="#outils">outils</a>
+        <a href="#programme">programme</a>
+        <a href="#formats">formats</a>
+        <a href="#questions">questions</a>
+        <a href="#conditions">conditions</a>
+        <a href="#contact">contact</a>
+        <a href="../ja/">日本語</a>
 
-          <a class="booking-button" href="https://calendly.com/sound-sachiekobayashi/new-meeting" target="_blank" rel="noopener">
-            réserver
-          </a>
-        </nav>
+        <a class="booking-button" href="https://calendly.com/sound-sachiekobayashi/new-meeting" target="_blank" rel="noopener">
+          réserver
+        </a>
+      </nav>
 
       <div class="intro">
         <div class="label">* * *</div>
@@ -864,9 +764,9 @@
 
     <figure class="hero-image">
       <div class="hero-slideshow">
-        <img src="images/home.jpg" alt="Composition, sound design et création musicale">
-        <img src="images/home-2.jpg" alt="Atelier de composition et recherche sonore">
-        <img src="images/home-3.jpg" alt="Cours de composition, sound design et musique électronique">
+        <img src="../images/home.jpg" alt="Composition, sound design et création musicale">
+        <img src="../images/home-2.jpg" alt="Atelier de composition et recherche sonore">
+        <img src="../images/home-3.jpg" alt="Cours de composition, sound design et musique électronique">
       </div>
       <figcaption>composition / sound design / création musicale</figcaption>
     </figure>
@@ -900,7 +800,7 @@
           </div>
 
           <figure class="direction-photo">
-            <img src="images/profile.png" alt="Sachie Kobayashi au piano">
+            <img src="../images/profile.png" alt="Sachie Kobayashi au piano">
             <figcaption>Sachie Kobayashi<br>composition / recherche sonore</figcaption>
           </figure>
         </div>
@@ -926,14 +826,6 @@
 
           <div class="disciplines-grid">
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <line x1="2" y1="15" x2="2" y2="5"></line>
-                  <line x1="12" y1="17" x2="12" y2="3"></line>
-                  <line x1="22" y1="13" x2="22" y2="7"></line>
-                  <path d="M30 4 C32 4,32 16,35 16"></path>
-                </svg>
-              </div>
               <h3>composition</h3>
               <p>écriture musicale, forme et développement.</p>
               <div class="discipline-actions">
@@ -943,15 +835,6 @@
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <line x1="2" y1="5" x2="40" y2="5"></line>
-                  <line x1="2" y1="10" x2="40" y2="10"></line>
-                  <line x1="10" y1="2" x2="10" y2="18"></line>
-                  <line x1="22" y1="2" x2="22" y2="18"></line>
-                  <line x1="34" y1="2" x2="34" y2="18"></line>
-                </svg>
-              </div>
               <h3>analyse</h3>
               <p>écoute, structure, harmonie et langage musical.</p>
               <div class="discipline-actions">
@@ -961,78 +844,36 @@
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <path d="M18 4 L18 14"></path>
-                  <circle cx="15" cy="14" r="3"></circle>
-                </svg>
-              </div>
               <h3>solfège</h3>
               <p>lecture, rythme, écoute et formation musicale.</p>
               <a href="#contact" data-subject="solfège">demander ce cours</a>
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <line x1="2" y1="4" x2="40" y2="4"></line>
-                  <line x1="2" y1="8" x2="40" y2="8"></line>
-                  <line x1="2" y1="12" x2="40" y2="12"></line>
-                  <line x1="2" y1="16" x2="40" y2="16"></line>
-                </svg>
-              </div>
               <h3>orchestration</h3>
               <p>instruments, timbre et écriture orchestrale.</p>
               <a href="#contact" data-subject="orchestration">demander ce cours</a>
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <path d="M1 10 C5 10,5 4,10 4 S15 16,20 16 S25 4,30 4 S35 16,41 16"></path>
-                </svg>
-              </div>
               <h3>synthétiseurs</h3>
               <p>synthèse sonore et création de textures.</p>
               <a href="#contact" data-subject="synthétiseurs">demander ce cours</a>
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <circle cx="21" cy="10" r="6"></circle>
-                  <circle cx="21" cy="10" r="2"></circle>
-                </svg>
-              </div>
               <h3>sound design</h3>
               <p>montage, espace, traitements et matière sonore.</p>
               <a href="#contact" data-subject="sound design">demander ce cours</a>
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <rect x="4" y="4" width="4" height="4"></rect>
-                  <rect x="18" y="4" width="4" height="4"></rect>
-                  <rect x="32" y="4" width="4" height="4"></rect>
-                  <rect x="4" y="12" width="4" height="4"></rect>
-                  <rect x="18" y="12" width="4" height="4"></rect>
-                  <rect x="32" y="12" width="4" height="4"></rect>
-                </svg>
-              </div>
               <h3>musique électronique</h3>
               <p>composition numérique, hybridation et performance.</p>
               <a href="#contact" data-subject="musique électronique">demander ce cours</a>
             </article>
 
             <article class="discipline-item">
-              <div class="discipline-icon" aria-hidden="true">
-                <svg viewBox="0 0 42 20">
-                  <rect x="5" y="5" width="10" height="10"></rect>
-                  <rect x="27" y="5" width="10" height="10"></rect>
-                  <line x1="15" y1="10" x2="27" y2="10"></line>
-                </svg>
-              </div>
               <h3>composition assistée par ordinateur</h3>
               <p>Ableton Live, workflows et production.</p>
               <a href="#contact" data-subject="composition assistée par ordinateur">demander ce cours</a>
@@ -1050,7 +891,7 @@
 
         <div class="documentation-grid">
           <figure>
-            <img src="images/documentation-1.jpg" alt="Performance et installation sonore">
+            <img src="../images/documentation-1.jpg" alt="Performance et installation sonore">
             <figcaption>Performance audiovisuelle et projection dans un espace historique — pratiques hybrides entre son, espace et image.</figcaption>
           </figure>
         </div>
@@ -1073,35 +914,17 @@
 
         <div class="tool-gallery">
           <figure>
-            <img src="images/max-screen.png" alt="Patch Max MSP">
+            <img src="../images/max-screen.png" alt="Patch Max MSP">
             <figcaption>Environnements de création interactifs avec Max/MSP, systèmes génératifs, traitement du signal et performance en temps réel.</figcaption>
           </figure>
-
-          
         </div>
 
         <div class="plugin-list">
-          <span>acids</span>
-          <span>Alan Vista</span>
-          <span>Denise Audio</span>
-          <span>Devious Machines</span>
-          <span>Digital Suburban</span>
-          <span>East West</span>
-          <span>Excite Audio</span>
-          <span>IK Multimedia</span>
-          <span>Ina-GRM</span>
-          <span>Ircam</span>
-          <span>iZotope</span>
-          <span>MeldaProduction</span>
-          <span>Modartt</span>
-          <span>Scaler Music</span>
-          <span>Slate Digital</span>
-          <span>Supertone</span>
-          <span>u-he</span>
-          <span>Vital Audio</span>
-          <span>Waves</span>
-          <span>XLN Audio</span>
-          <span>Zynaptiq</span>
+          <span>acids</span><span>Alan Vista</span><span>Denise Audio</span><span>Devious Machines</span>
+          <span>Digital Suburban</span><span>East West</span><span>Excite Audio</span><span>IK Multimedia</span>
+          <span>Ina-GRM</span><span>Ircam</span><span>iZotope</span><span>MeldaProduction</span>
+          <span>Modartt</span><span>Scaler Music</span><span>Slate Digital</span><span>Supertone</span>
+          <span>u-he</span><span>Vital Audio</span><span>Waves</span><span>XLN Audio</span><span>Zynaptiq</span>
         </div>
       </div>
     </section>
@@ -1111,41 +934,11 @@
       <div class="content">
         <h2>Un parcours construit selon votre niveau et votre pratique</h2>
         <ul class="program">
-          <li>
-            <span class="num">01</span>
-            <div>
-              <h3>Curriculum personnalisé</h3>
-              <p>Chaque parcours est adapté à votre niveau, vos objectifs, votre esthétique musicale et votre manière de travailler. Débutants, étudiants avancés ou artistes en activité peuvent développer une approche structurée et progressive.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">02</span>
-            <div>
-              <h3>Composition à l’ère de l’IA</h3>
-              <p>Les outils d’intelligence artificielle peuvent être intégrés activement dans des projets de composition, de performance, de génération audiovisuelle ou de recherche sonore, tout en conservant une pensée musicale personnelle et critique.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">03</span>
-            <div>
-              <h3>Outils et environnements de création</h3>
-              <p>Le travail peut intégrer DAW, Max/MSP, TouchDesigner, synthèse sonore, partition, orchestration numérique, IA générative, transformation vocale, outils audiovisuels, workflows hybrides et méthodes adaptées aux pratiques contemporaines.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">04</span>
-            <div>
-              <h3>Organisation flexible</h3>
-              <p>Les cours peuvent être suivis à partir d’une séance par mois, avec un rythme flexible selon votre emploi du temps, votre projet et votre disponibilité créative.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">05</span>
-            <div>
-              <h3>Ce que permet le format en ligne</h3>
-              <p>Le travail à distance permet de partager directement projets, sessions, partitions, patches et références sonores. Les échanges peuvent intégrer l’écoute, l’analyse et les outils numériques dans un environnement de travail fluide.</p>
-            </div>
-          </li>
+          <li><span class="num">01</span><div><h3>Curriculum personnalisé</h3><p>Chaque parcours est adapté à votre niveau, vos objectifs, votre esthétique musicale et votre manière de travailler.</p></div></li>
+          <li><span class="num">02</span><div><h3>Composition à l’ère de l’IA</h3><p>Les outils d’intelligence artificielle peuvent être intégrés activement dans des projets de composition, de performance ou de recherche sonore.</p></div></li>
+          <li><span class="num">03</span><div><h3>Outils et environnements de création</h3><p>Le travail peut intégrer DAW, Max/MSP, TouchDesigner, synthèse sonore, partition, orchestration numérique, IA générative et workflows hybrides.</p></div></li>
+          <li><span class="num">04</span><div><h3>Organisation flexible</h3><p>Les cours peuvent être suivis à partir d’une séance par mois, avec un rythme flexible selon votre projet.</p></div></li>
+          <li><span class="num">05</span><div><h3>Ce que permet le format en ligne</h3><p>Le travail à distance permet de partager directement projets, sessions, partitions, patches et références sonores.</p></div></li>
         </ul>
       </div>
     </section>
@@ -1188,30 +981,12 @@
     <section id="questions">
       <div class="section-label">questions</div>
       <div class="content">
-        <details>
-          <summary>Je ne viens pas d’un conservatoire. Est-ce possible ?</summary>
-          <p>Oui. Les cours sont adaptés au niveau et au parcours de chaque personne. Certains étudiants viennent de la composition classique, d’autres de la production, du cinéma, du sound art ou de pratiques autodidactes.</p>
-        </details>
-        <details>
-          <summary>Est-ce que je peux travailler sur mes propres projets ?</summary>
-          <p>Oui. Pièces, albums, performances, portfolios, musique à l’image, installations, projets électroniques ou recherches personnelles peuvent être intégrés directement au travail du cours.</p>
-        </details>
-        <details>
-          <summary>Faut-il utiliser un logiciel particulier ?</summary>
-          <p>Non. Ableton Live, Logic Pro, Reaper, Pro Tools, Cubase, Studio One, Max/MSP ou d’autres environnements peuvent être utilisés selon votre pratique. Des étudiants travaillent déjà avec différents workflows et configurations.</p>
-        </details>
-        <details>
-          <summary>Combien de cours par mois sont recommandés ?</summary>
-          <p>Le rythme dépend du projet et du temps disponible. Certaines personnes travaillent chaque semaine, d’autres une fois par mois avec un suivi plus autonome entre les séances.</p>
-        </details>
-        <details>
-          <summary>Les cours sont-ils orientés vers un style musical précis ?</summary>
-          <p>Non. Le travail peut concerner la composition contemporaine, la musique électronique, le sound design, l’ambient, l’expérimental, la musique à l’image ou des formes hybrides.</p>
-        </details>
-        <details>
-          <summary>Est-ce un cours centré sur l’IA ?</summary>
-          <p>Le centre reste la composition, l’écoute et le son, mais les projets utilisant activement l’IA, Suno, ElevenLabs, Supertone, la génération audiovisuelle, la transformation vocale, Max/MSP ou TouchDesigner sont également bienvenus lorsqu’ils s’inscrivent dans une démarche artistique cohérente.</p>
-        </details>
+        <details><summary>Je ne viens pas d’un conservatoire. Est-ce possible ?</summary><p>Oui. Les cours sont adaptés au niveau et au parcours de chaque personne.</p></details>
+        <details><summary>Est-ce que je peux travailler sur mes propres projets ?</summary><p>Oui. Pièces, albums, performances, portfolios, musique à l’image, installations, projets électroniques ou recherches personnelles peuvent être intégrés directement.</p></details>
+        <details><summary>Faut-il utiliser un logiciel particulier ?</summary><p>Non. Ableton Live, Logic Pro, Reaper, Pro Tools, Cubase, Studio One, Max/MSP ou d’autres environnements peuvent être utilisés.</p></details>
+        <details><summary>Combien de cours par mois sont recommandés ?</summary><p>Le rythme dépend du projet et du temps disponible.</p></details>
+        <details><summary>Les cours sont-ils orientés vers un style musical précis ?</summary><p>Non. Le travail peut concerner la composition contemporaine, la musique électronique, le sound design, l’ambient, l’expérimental, la musique à l’image ou des formes hybrides.</p></details>
+        <details><summary>Est-ce un cours centré sur l’IA ?</summary><p>Le centre reste la composition, l’écoute et le son, mais les projets utilisant activement l’IA sont également bienvenus.</p></details>
       </div>
     </section>
 
@@ -1219,57 +994,16 @@
       <div class="section-label">conditions</div>
       <div class="content">
         <h2>Informations et politique des cours</h2>
-
         <ul class="list">
-          <li>
-            <span>format</span>
-            <span>cours individuels en ligne via Zoom.</span>
-          </li>
-
-          <li>
-            <span>tarif</span>
-            <span>70€ par heure.</span>
-          </li>
-
-          <li>
-            <span>langues</span>
-            <span>français uniquement.</span>
-          </li>
-
-          <li>
-            <span>paiement</span>
-            <span>les paiements sont effectués via Stripe avant le cours.</span>
-          </li>
-
-          <li>
-            <span>planning</span>
-            <span>le rythme des cours est flexible selon les disponibilités et les projets.</span>
-          </li>
-
-          <li>
-            <span>annulation</span>
-            <span>un report est possible avant l’heure du cours selon les disponibilités.</span>
-          </li>
-
-          <li>
-            <span>remboursement</span>
-            <span>les cours déjà réglés ne sont généralement pas remboursables.</span>
-          </li>
-
-          <li>
-            <span>outils</span>
-            <span>Zoom, DAW, Max/MSP, TouchDesigner, Suno, ElevenLabs, Supertone, IA générative et workflows hybrides peuvent être utilisés.</span>
-          </li>
-
-          <li>
-            <span>contact</span>
-            <span>info@sachiekobayashi.com</span>
-          </li>
-
-          <li>
-            <span>mise à jour</span>
-            <span>26 mai 2026.</span>
-          </li>
+          <li><span>format</span><span>cours individuels en ligne via Zoom.</span></li>
+          <li><span>tarif</span><span>70€ par heure.</span></li>
+          <li><span>langues</span><span>français uniquement.</span></li>
+          <li><span>paiement</span><span>les paiements sont effectués via Stripe avant le cours.</span></li>
+          <li><span>planning</span><span>le rythme des cours est flexible selon les disponibilités et les projets.</span></li>
+          <li><span>annulation</span><span>un report est possible avant l’heure du cours selon les disponibilités.</span></li>
+          <li><span>remboursement</span><span>les cours déjà réglés ne sont généralement pas remboursables.</span></li>
+          <li><span>contact</span><span>info@sachiekobayashi.com</span></li>
+          <li><span>mise à jour</span><span>26 mai 2026.</span></li>
         </ul>
       </div>
     </section>
@@ -1278,20 +1012,13 @@
       <div class="section-label">contact</div>
       <div class="content">
         <h2>Envoyez simplement votre projet</h2>
-        <p>Indiquez votre niveau, vos outils, et ce que vous souhaitez travailler : composition, sound design, portfolio, pièce en cours, recherche sonore ou mini-cours. Les cours individuels ont lieu en ligne via Zoom.</p>
+        <p>Indiquez votre niveau, vos outils, et ce que vous souhaitez travailler.</p>
+
         <div class="contact-layout">
           <div>
             <form class="contact-form" action="https://formspree.io/f/mvzywvop" method="POST">
-              <label>
-                Nom
-                <input type="text" name="nom" autocomplete="name" required>
-              </label>
-
-              <label>
-                Email
-                <input type="email" name="email" autocomplete="email" required>
-              </label>
-
+              <label>Nom <input type="text" name="nom" autocomplete="name" required></label>
+              <label>Email <input type="email" name="email" autocomplete="email" required></label>
               <label>
                 Cours souhaité
                 <select id="courseSelect" name="cours" required>
@@ -1307,12 +1034,7 @@
                   <option value="mini-cours">mini-cours</option>
                 </select>
               </label>
-
-              <label>
-                Message
-                <textarea id="messageField" name="message" placeholder="Votre niveau, vos outils, et ce que vous souhaitez travailler." required></textarea>
-              </label>
-
+              <label>Message <textarea id="messageField" name="message" placeholder="Votre niveau, vos outils, et ce que vous souhaitez travailler." required></textarea></label>
               <button type="submit">envoyer</button>
             </form>
 
@@ -1321,11 +1043,7 @@
 
           <div class="calendly-wrapper">
             <p class="small">Le premier échange de 30 minutes est gratuit. Après la réservation, un lien Zoom est envoyé automatiquement par email.</p>
-
-            <div class="calendly-inline-widget"
-              data-url="https://calendly.com/sound-sachiekobayashi/new-meeting"
-              style="min-width:320px;height:640px;">
-            </div>
+            <div class="calendly-inline-widget" data-url="https://calendly.com/sound-sachiekobayashi/new-meeting" style="min-width:320px;height:640px;"></div>
           </div>
         </div>
       </div>
@@ -1334,55 +1052,57 @@
     <footer>
       <div>© 2026</div>
       <div>Composition, Sound Design et Création Musicale · Cours en ligne</div>
-      <img class="footer-logo" src="images/acs-logo.png" alt="ACS logo">
+      <img class="footer-logo" src="../images/acs-logo.png" alt="ACS logo">
     </footer>
   </div>
-<script>
-  const courseLinks = document.querySelectorAll('[data-subject]');
-  const generalLinks = document.querySelectorAll('.general-contact-link');
-  const courseSelect = document.getElementById('courseSelect');
-  const messageField = document.getElementById('messageField');
 
-  courseLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      const subject = link.getAttribute('data-subject');
-      if (courseSelect) courseSelect.value = subject;
-      if (messageField && !messageField.value.trim()) {
-        messageField.value = `Bonjour,
+  <script>
+    const courseLinks = document.querySelectorAll('[data-subject]');
+    const generalLinks = document.querySelectorAll('.general-contact-link');
+    const courseSelect = document.getElementById('courseSelect');
+    const messageField = document.getElementById('messageField');
+
+    courseLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const subject = link.getAttribute('data-subject');
+        if (courseSelect) courseSelect.value = subject;
+        if (messageField && !messageField.value.trim()) {
+          messageField.value = `Bonjour,
 
 Je souhaite recevoir des informations concernant le cours : ${subject}.
 
-Mon niveau : 
-Mes outils : 
-Mon projet : 
+Mon niveau :
+Mes outils :
+Mon projet :
 `;
-      }
-      setTimeout(() => {
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-      }, 0);
-    });  });
+        }
+        setTimeout(() => {
+          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }, 0);
+      });
+    });
 
-  generalLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (courseSelect) courseSelect.value = '';
-      if (messageField && !messageField.value.trim()) {
-        messageField.value = `Bonjour,
+    generalLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (courseSelect) courseSelect.value = '';
+        if (messageField && !messageField.value.trim()) {
+          messageField.value = `Bonjour,
 
 Je souhaite recevoir des informations concernant les cours.
 
-Mon niveau : 
-Mes outils : 
-Mon projet : 
+Mon niveau :
+Mes outils :
+Mon projet :
 `;
-      }
+        }
 
-      setTimeout(() => {
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-      }, 0);
+        setTimeout(() => {
+          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }, 0);
+      });
     });
-  });
-</script>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </script>
+
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
-
