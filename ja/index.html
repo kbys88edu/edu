@@ -45,6 +45,36 @@ a {
   text-decoration: none;
 }
 
+.hero {
+  position: relative;
+}
+
+.hero-quote {
+  position: absolute;
+  top: 120px;
+  right: 5vw;
+  max-width: 360px;
+  border-left: 1px solid var(--text);
+  padding-left: 18px;
+  z-index: 2;
+}
+
+.hero-quote p {
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+}
+
+.hero-quote span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}  
+
 img {
   max-width: 100%;
   display: block;
@@ -598,6 +628,13 @@ footer {
   footer {
     flex-direction: column;
   }
+
+   .hero-quote {
+    position: static;
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+  
 }
   </style>
 </head>
@@ -623,19 +660,19 @@ footer {
 </header>
 
 <main id="top">
+<section class="hero">
+  <div class="hero-quote">
+    <p>
+      音楽を学ぶことは、音をもう一度聴き直すことから始まる。
+    </p>
+    <span>
+      inspired by Pierre Schaeffer
+    </span>
+  </div>
 
-  <section class="hero">
+  <div>
     <div class="eyebrow">Online atelier for sound and creation</div>
-    
-    <div class="hero-quote">
-      <p>
-        音楽を学ぶことは、音をもう一度聴き直すことから始まる。
-      </p>
-      <span>
-        inspired by Pierre Schaeffer
-      </span>
-    </div>
-    
+
     <h1>
       音と創作のための<br>
       オンラインアトリエ
