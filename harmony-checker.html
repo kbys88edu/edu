@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Harmony Checker｜Atelier Composition Son</title>
-　<script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.8.9/build/opensheetmusicdisplay.min.js"></script>
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.8.9/build/opensheetmusicdisplay.min.js"></script>
+
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -17,7 +18,7 @@
     }
 
     main {
-      max-width: 860px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
@@ -31,12 +32,19 @@
     }
 
     h1 {
-      font-size: 32px;
-      margin-bottom: 8px;
+      font-size: 34px;
+      margin: 0 0 8px;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 0 0 16px;
     }
 
     p {
       line-height: 1.8;
+      margin: 0 0 12px;
     }
 
     input {
@@ -76,6 +84,24 @@
 
     .error {
       color: #9b1c1c;
+      font-weight: 600;
+    }
+
+    .status {
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    #score {
+      width: 100%;
+      overflow-x: auto;
+      background: #fff;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #666;
+      margin-top: 14px;
     }
   </style>
 </head>
@@ -86,10 +112,12 @@
       <h1>Harmony Checker</h1>
       <p>
         MusicXMLファイルをアップロードすると、四声体和声の基本的な禁則を確認できます。
-        現在は、連続5度・連続8度・隠伏5度・隠伏8度・声部交差・声域・声部間隔・大きすぎる跳躍に対応しています。
       </p>
       <p>
-        このツールは補助的な確認用です。音楽的な判断や例外処理はレッスン内で確認します。初回アクセス時は解析に少し時間がかかる場合があります。
+        現在は、連続5度・連続8度・隠伏5度・隠伏8度・声部交差・声域・声部間隔・大きすぎる跳躍に対応しています。
+      </p>
+      <p class="note">
+        このツールは補助的な確認用です。音楽的な判断や例外処理はレッスン内で確認します。
       </p>
 
       <input type="file" id="fileInput" accept=".xml,.musicxml,.mxl" />
@@ -99,19 +127,89 @@
 
     <section class="card">
       <h2>解析結果</h2>
-      <div id="status">ファイルを選択してください。</div>
+      <div id="status" class="status">ファイルを選択してください。</div>
       <div id="results"></div>
+    </section>
+
+    <section class="card">
+      <h2>楽譜表示</h2>
+      <div id="score"></div>
+      <p class="note">
+        赤く表示された音符は、検出された禁則・警告に関係する音です。
+      </p>
     </section>
   </main>
 
   <script>
-    // RenderやVercelにデプロイした後、このURLを差し替えます。
     const API_URL = "https://harmony-checker-backend.onrender.com/analyze";
-    
+
     const fileInput = document.getElementById("fileInput");
     const analyzeButton = document.getElementById("analyzeButton");
     const statusDiv = document.getElementById("status");
     const resultsDiv = document.getElementById("results");
+    const scoreDiv = document.getElementById("score");
+
+    let osmd = null;
+
+    function escapeHtml(text) {
+      if (text === undefined || text === null) return "";
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getMeasureText(item) {
+      if (item.measure !== undefined && item.measure !== null) {
+        return `小節 ${item.measure}`;
+      }
+
+      if (
+        item.measure_before !== undefined &&
+        item.measure_after !== undefined &&
+        item.measure_before !== null &&
+        item.measure_after !== null
+      ) {
+        return `小節 ${item.measure_before} → ${item.measure_after}`;
+      }
+
+      return "";
+    }
+
+    async function renderScore(xmlText) {
+      scoreDiv.innerHTML = "";
+
+      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(scoreDiv, {
+        autoResize: true,
+        backend: "svg",
+        drawTitle: false,
+        drawComposer: false
+      });
+
+      await osmd.load(xmlText);
+      osmd.render();
+    }
+
+    function renderResults(results) {
+      resultsDiv.innerHTML = "";
+
+      results.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "result-item";
+
+        const measureText = getMeasureText(item);
+
+        div.innerHTML = `
+          <div class="rule">${escapeHtml(item.rule)}</div>
+          <div>${escapeHtml(item.message)}</div>
+          <div class="meta">${escapeHtml(measureText)}</div>
+        `;
+
+        resultsDiv.appendChild(div);
+      });
+    }
 
     analyzeButton.addEventListener("click", async () => {
       const file = fileInput.files[0];
@@ -125,8 +223,9 @@
       formData.append("file", file);
 
       analyzeButton.disabled = true;
-      statusDiv.textContent = "解析中です...";
+      statusDiv.textContent = "解析中です。初回はRenderの起動に少し時間がかかる場合があります。";
       resultsDiv.innerHTML = "";
+      scoreDiv.innerHTML = "";
 
       try {
         const response = await fetch(API_URL, {
@@ -137,8 +236,12 @@
         const data = await response.json();
 
         if (!data.ok) {
-          statusDiv.innerHTML = `<span class="error">解析エラー：${data.error}</span>`;
+          statusDiv.innerHTML = `<span class="error">解析エラー：${escapeHtml(data.error)}</span>`;
           return;
+        }
+
+        if (data.annotated_xml) {
+          await renderScore(data.annotated_xml);
         }
 
         if (data.count === 0) {
@@ -147,24 +250,7 @@
         }
 
         statusDiv.textContent = `${data.count} 件の指摘が見つかりました。`;
-
-        data.results.forEach((item) => {
-          const div = document.createElement("div");
-          div.className = "result-item";
-
-          const measureText =
-            item.measure !== undefined
-              ? `小節 ${item.measure}`
-              : `小節 ${item.measure_before} → ${item.measure_after}`;
-
-          div.innerHTML = `
-            <div class="rule">${item.rule}</div>
-            <div>${item.message}</div>
-            <div class="meta">${measureText}</div>
-          `;
-
-          resultsDiv.appendChild(div);
-        });
+        renderResults(data.results);
 
       } catch (error) {
         statusDiv.innerHTML = `<span class="error">通信エラー：APIに接続できません。</span>`;
@@ -173,12 +259,6 @@
         analyzeButton.disabled = false;
       }
     });
-
-<section class="card">
-  <h2>楽譜表示</h2>
-  <div id="score"></div>
-</section>
-    
   </script>
 </body>
 </html>
