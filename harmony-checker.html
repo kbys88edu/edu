@@ -34,6 +34,30 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.04);
     }
 
+    .topbar {
+      max-width: 1080px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .lang-button {
+      border: 1px solid #d8d0c4;
+      background: #ffffff;
+      color: #1f1f1f;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .lang-button.active {
+      background: #1f1f1f;
+      color: #ffffff;
+      border-color: #1f1f1f;
+    }
+
     h1 {
       font-size: 34px;
       margin: 0 0 8px;
@@ -124,14 +148,19 @@
 </head>
 
 <body>
+  <div class="topbar">
+    <button class="lang-button" id="langJa">日本語</button>
+    <button class="lang-button" id="langFr">Français</button>
+  </div>
+
   <div id="loginScreen" class="card">
     <h1>Harmony Checker</h1>
-    <p>このページはAdvanced受講者専用です。</p>
+    <p id="loginText">このページはAdvanced受講者専用です。</p>
     <input type="password" id="passwordInput" placeholder="パスワード" />
     <br />
     <button id="loginButton">入る</button>
     <p id="loginMessage" class="error"></p>
-    <p class="note">
+    <p class="note" id="loginNote">
       このパスワード保護は簡易的なものです。本格運用時はCloudflare Accessなどで保護してください。
     </p>
   </div>
@@ -139,13 +168,13 @@
   <main id="app" style="display: none;">
     <section class="card">
       <h1>Harmony Checker</h1>
-      <p>
+      <p id="intro1">
         MusicXMLファイルをアップロードすると、四声体和声の基本的な禁則を確認できます。
       </p>
-      <p>
+      <p id="intro2">
         現在は、連続5度・連続8度・隠伏5度・隠伏8度・声部交差・声域・声部間隔・大きすぎる跳躍に対応しています。
       </p>
-      <p class="note">
+      <p class="note" id="introNote">
         このツールは補助的な確認用です。音楽的な判断や例外処理はレッスン内で確認します。
       </p>
 
@@ -155,15 +184,15 @@
     </section>
 
     <section class="card">
-      <h2>解析結果</h2>
+      <h2 id="resultsTitle">解析結果</h2>
       <div id="status" class="status">ファイルを選択してください。</div>
       <div id="results"></div>
     </section>
 
     <section class="card">
-      <h2>楽譜表示</h2>
+      <h2 id="scoreTitle">楽譜表示</h2>
       <div id="score"></div>
-      <p class="note">
+      <p class="note" id="scoreNote">
         赤く表示された音符は、検出された禁則・警告に関係する音です。
       </p>
     </section>
@@ -173,11 +202,114 @@
     const ACCESS_PASSWORD = "advanced2026";
     const API_URL = "https://harmony-checker-backend.onrender.com/analyze";
 
+    const TEXT = {
+      ja: {
+        loginText: "このページはAdvanced受講者専用です。",
+        passwordPlaceholder: "パスワード",
+        loginButton: "入る",
+        wrongPassword: "パスワードが違います。",
+        loginNote: "このパスワード保護は簡易的なものです。本格運用時はCloudflare Accessなどで保護してください。",
+
+        intro1: "MusicXMLファイルをアップロードすると、四声体和声の基本的な禁則を確認できます。",
+        intro2: "現在は、連続5度・連続8度・隠伏5度・隠伏8度・声部交差・声域・声部間隔・大きすぎる跳躍に対応しています。",
+        introNote: "このツールは補助的な確認用です。音楽的な判断や例外処理はレッスン内で確認します。",
+        analyzeButton: "解析する",
+
+        resultsTitle: "解析結果",
+        scoreTitle: "楽譜表示",
+        scoreNote: "赤く表示された音符は、検出された禁則・警告に関係する音です。",
+
+        chooseFile: "MusicXMLファイルを選択してください。",
+        analyzing: "解析中です。初回はRenderの起動に少し時間がかかる場合があります。",
+        noIssues: "禁則は検出されませんでした。",
+        found: "件の指摘が見つかりました。",
+        apiError: "通信エラー：APIに接続できません。",
+        parseError: "解析エラー：",
+        scoreError: "楽譜表示エラー：MusicXMLの表示に失敗しました。",
+        noOriginalXml: "original_xml が返っていません。Render側の main.py を確認してください。",
+
+        measure: "小節",
+        to: "→"
+      },
+
+      fr: {
+        loginText: "Cette page est réservée aux élèves du niveau Advanced.",
+        passwordPlaceholder: "Mot de passe",
+        loginButton: "Entrer",
+        wrongPassword: "Mot de passe incorrect.",
+        loginNote: "Cette protection par mot de passe est provisoire. Pour un usage officiel, utilisez plutôt Cloudflare Access ou un système équivalent.",
+
+        intro1: "Importez un fichier MusicXML pour vérifier certaines règles fondamentales de l’écriture à quatre voix.",
+        intro2: "L’outil détecte actuellement les quintes parallèles, octaves parallèles, quintes et octaves directes, croisements de voix, tessitures, espacements et grands sauts mélodiques.",
+        introNote: "Cet outil sert d’aide à la vérification. Les choix musicaux, les exceptions et l’écriture stylistique sont discutés pendant les cours.",
+        analyzeButton: "Analyser",
+
+        resultsTitle: "Résultats de l’analyse",
+        scoreTitle: "Partition",
+        scoreNote: "Les notes affichées en rouge sont liées aux règles ou avertissements détectés.",
+
+        chooseFile: "Veuillez sélectionner un fichier MusicXML.",
+        analyzing: "Analyse en cours. Le premier lancement peut prendre un peu de temps si le serveur Render sort de veille.",
+        noIssues: "Aucune règle problématique n’a été détectée.",
+        found: "élément(s) détecté(s).",
+        apiError: "Erreur de connexion : impossible de joindre l’API.",
+        parseError: "Erreur d’analyse : ",
+        scoreError: "Erreur d’affichage : impossible d’afficher le fichier MusicXML.",
+        noOriginalXml: "original_xml n’a pas été renvoyé. Vérifiez le fichier main.py côté Render.",
+
+        measure: "mesure",
+        to: "→"
+      }
+    };
+
+    const RULE_LABELS = {
+      ja: {
+        "連続5度": "連続5度",
+        "連続8度": "連続8度",
+        "隠伏5度": "隠伏5度",
+        "隠伏8度": "隠伏8度",
+        "声部交差": "声部交差",
+        "声域外": "声域外",
+        "声部間隔": "声部間隔",
+        "大きすぎる跳躍": "大きすぎる跳躍"
+      },
+      fr: {
+        "連続5度": "Quintes parallèles",
+        "連続8度": "Octaves parallèles",
+        "隠伏5度": "Quinte directe",
+        "隠伏8度": "Octave directe",
+        "声部交差": "Croisement de voix",
+        "声域外": "Tessiture hors limite",
+        "声部間隔": "Espacement des voix",
+        "大きすぎる跳躍": "Saut mélodique excessif"
+      }
+    };
+
+    const VOICE_LABELS = {
+      ja: {
+        Soprano: "Soprano",
+        Alto: "Alto",
+        Tenor: "Tenor",
+        Bass: "Bass"
+      },
+      fr: {
+        Soprano: "soprano",
+        Alto: "alto",
+        Tenor: "ténor",
+        Bass: "basse"
+      }
+    };
+
+    let currentLang = localStorage.getItem("harmony_checker_lang") || "ja";
+
     const loginScreen = document.getElementById("loginScreen");
     const app = document.getElementById("app");
     const passwordInput = document.getElementById("passwordInput");
     const loginButton = document.getElementById("loginButton");
     const loginMessage = document.getElementById("loginMessage");
+
+    const langJa = document.getElementById("langJa");
+    const langFr = document.getElementById("langFr");
 
     const fileInput = document.getElementById("fileInput");
     const analyzeButton = document.getElementById("analyzeButton");
@@ -186,6 +318,47 @@
     const scoreDiv = document.getElementById("score");
 
     let osmd = null;
+    let lastResults = [];
+
+    function t(key) {
+      return TEXT[currentLang][key] || TEXT.ja[key] || key;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("harmony_checker_lang", lang);
+      document.documentElement.lang = lang;
+
+      langJa.classList.toggle("active", lang === "ja");
+      langFr.classList.toggle("active", lang === "fr");
+
+      document.getElementById("loginText").textContent = t("loginText");
+      document.getElementById("loginNote").textContent = t("loginNote");
+      passwordInput.placeholder = t("passwordPlaceholder");
+      loginButton.textContent = t("loginButton");
+
+      document.getElementById("intro1").textContent = t("intro1");
+      document.getElementById("intro2").textContent = t("intro2");
+      document.getElementById("introNote").textContent = t("introNote");
+      analyzeButton.textContent = t("analyzeButton");
+
+      document.getElementById("resultsTitle").textContent = t("resultsTitle");
+      document.getElementById("scoreTitle").textContent = t("scoreTitle");
+      document.getElementById("scoreNote").textContent = t("scoreNote");
+
+      if (!lastResults.length) {
+        statusDiv.textContent = t("chooseFile");
+      } else {
+        statusDiv.textContent =
+          currentLang === "ja"
+            ? `${lastResults.length} ${t("found")}`
+            : `${lastResults.length} ${t("found")}`;
+        renderResults(lastResults);
+      }
+    }
+
+    langJa.addEventListener("click", () => setLanguage("ja"));
+    langFr.addEventListener("click", () => setLanguage("fr"));
 
     function showApp() {
       sessionStorage.setItem("harmony_checker_access", "ok");
@@ -197,7 +370,7 @@
       if (passwordInput.value === ACCESS_PASSWORD) {
         showApp();
       } else {
-        loginMessage.textContent = "パスワードが違います。";
+        loginMessage.textContent = t("wrongPassword");
       }
     });
 
@@ -224,7 +397,7 @@
 
     function getMeasureText(item) {
       if (item.measure !== undefined && item.measure !== null) {
-        return `小節 ${item.measure}`;
+        return `${t("measure")} ${item.measure}`;
       }
 
       if (
@@ -233,10 +406,50 @@
         item.measure_before !== null &&
         item.measure_after !== null
       ) {
-        return `小節 ${item.measure_before} → ${item.measure_after}`;
+        return `${t("measure")} ${item.measure_before} ${t("to")} ${item.measure_after}`;
       }
 
       return "";
+    }
+
+    function voiceName(name) {
+      return VOICE_LABELS[currentLang][name] || name;
+    }
+
+    function formatIssueMessage(item) {
+      if (currentLang === "ja") {
+        return item.message;
+      }
+
+      const voices = item.voices || [];
+      const v1 = voiceName(voices[0]);
+      const v2 = voiceName(voices[1]);
+
+      if (item.type === "parallel") {
+        return `${v1} et ${v2} forment des ${item.rule === "連続5度" ? "quintes parallèles" : "octaves parallèles"}.`;
+      }
+
+      if (item.type === "hidden") {
+        return `${v1} et ${v2} forment une ${item.rule === "隠伏5度" ? "quinte directe" : "octave directe"} possible : les deux voix avancent dans la même direction et la voix supérieure procède par saut.`;
+      }
+
+      if (item.type === "voice_crossing") {
+        return `Croisement de voix : ${v1} passe sous ${v2}.`;
+      }
+
+      if (item.type === "voice_range") {
+        return `${voiceName(item.voice)} : ${item.pitch} est hors de la tessiture recommandée.`;
+      }
+
+      if (item.type === "voice_spacing") {
+        return `L’espacement entre ${v1} et ${v2} est trop large : ${item.distance} demi-tons.`;
+      }
+
+      if (item.type === "melodic_leap") {
+        return `${voiceName(item.voice)} présente un saut mélodique trop large : de ${item.pitch_before} à ${item.pitch_after}, soit ${item.leap} demi-tons.`;
+      }
+
+      return item.message || "";
     }
 
     function renderResults(results) {
@@ -246,11 +459,17 @@
         const div = document.createElement("div");
         div.className = "result-item";
 
+        const ruleLabel =
+          RULE_LABELS[currentLang][item.rule] ||
+          item.rule ||
+          "";
+
         const measureText = getMeasureText(item);
+        const message = formatIssueMessage(item);
 
         div.innerHTML = `
-          <div class="rule">${escapeHtml(item.rule)}</div>
-          <div>${escapeHtml(item.message)}</div>
+          <div class="rule">${escapeHtml(ruleLabel)}</div>
+          <div>${escapeHtml(message)}</div>
           <div class="meta">${escapeHtml(measureText)}</div>
         `;
 
@@ -271,28 +490,44 @@
       await osmd.load(xmlText);
       osmd.render();
 
-      highlightNotesOnSvg(highlights || []);
+      setTimeout(() => {
+        highlightNotesOnSvg(highlights || []);
+      }, 100);
     }
 
     function collectGraphicalNotesByStaff() {
       const notesByStaff = [[], [], [], []];
 
+      const graphic = osmd.GraphicSheet || osmd.graphic;
+
       const measureList =
-        osmd.graphic?.measureList ||
-        osmd.GraphicSheet?.MeasureList ||
+        graphic?.MeasureList ||
+        graphic?.measureList ||
         [];
 
       for (const verticalMeasures of measureList) {
+        if (!Array.isArray(verticalMeasures)) continue;
+
         for (let staffIndex = 0; staffIndex < Math.min(4, verticalMeasures.length); staffIndex++) {
           const measure = verticalMeasures[staffIndex];
+          if (!measure) continue;
 
-          if (!measure || !measure.staffEntries) continue;
+          const staffEntries =
+            measure.staffEntries ||
+            measure.StaffEntries ||
+            [];
 
-          for (const staffEntry of measure.staffEntries) {
-            const graphicalVoiceEntries = staffEntry.graphicalVoiceEntries || [];
+          for (const staffEntry of staffEntries) {
+            const graphicalVoiceEntries =
+              staffEntry.graphicalVoiceEntries ||
+              staffEntry.GraphicalVoiceEntries ||
+              [];
 
             for (const graphicalVoiceEntry of graphicalVoiceEntries) {
-              const notes = graphicalVoiceEntry.notes || [];
+              const notes =
+                graphicalVoiceEntry.notes ||
+                graphicalVoiceEntry.Notes ||
+                [];
 
               for (const graphicalNote of notes) {
                 notesByStaff[staffIndex].push(graphicalNote);
@@ -306,7 +541,7 @@
     }
 
     function colorSvgElementDeep(element, color) {
-      if (!element) return;
+      if (!element) return false;
 
       try {
         element.style.fill = color;
@@ -317,13 +552,74 @@
           child.style.fill = color;
           child.style.stroke = color;
         });
+
+        return true;
       } catch (error) {
         console.warn("SVG color error:", error);
+        return false;
       }
+    }
+
+    function colorGraphicalNote(graphicalNote, color) {
+      if (!graphicalNote) return false;
+
+      let colored = false;
+
+      try {
+        if (typeof graphicalNote.setColor === "function") {
+          graphicalNote.setColor(color, {
+            applyToNoteheads: true,
+            applyToStems: true,
+            applyToBeams: true,
+            applyToAccidentals: true,
+            applyToLedgerLines: true
+          });
+          colored = true;
+        }
+      } catch (error) {
+        console.warn("setColor failed:", error);
+      }
+
+      try {
+        if (typeof graphicalNote.getSVGGElement === "function") {
+          const svgElement = graphicalNote.getSVGGElement();
+          if (colorSvgElementDeep(svgElement, color)) {
+            colored = true;
+          }
+        }
+      } catch (error) {
+        console.warn("getSVGGElement failed:", error);
+      }
+
+      try {
+        const possibleElements = [
+          graphicalNote.svgElement,
+          graphicalNote.SVGElement,
+          graphicalNote.g,
+          graphicalNote.GElement,
+          graphicalNote.notehead,
+          graphicalNote.Notehead
+        ];
+
+        possibleElements.forEach((element) => {
+          if (element && colorSvgElementDeep(element, color)) {
+            colored = true;
+          }
+        });
+      } catch (error) {
+        console.warn("fallback SVG search failed:", error);
+      }
+
+      return colored;
     }
 
     function highlightNotesOnSvg(highlights) {
       const notesByStaff = collectGraphicalNotesByStaff();
+
+      console.log("highlights:", highlights);
+      console.log("notesByStaff:", notesByStaff.map((staff) => staff.length));
+
+      let coloredCount = 0;
 
       highlights.forEach((target) => {
         const voiceIndex = target.voice_index;
@@ -336,22 +632,23 @@
           return;
         }
 
-        try {
-          if (typeof graphicalNote.getSVGGElement === "function") {
-            const svgElement = graphicalNote.getSVGGElement();
-            colorSvgElementDeep(svgElement, "#d00000");
-          }
-        } catch (error) {
-          console.warn("音符ハイライト失敗:", target, error);
+        if (colorGraphicalNote(graphicalNote, "#d00000")) {
+          coloredCount += 1;
         }
       });
+
+      console.log("colored notes:", coloredCount);
+
+      if (coloredCount === 0 && highlights.length > 0) {
+        console.warn("ハイライト対象はありますが、SVG上で色を変更できませんでした。");
+      }
     }
 
     analyzeButton.addEventListener("click", async () => {
       const file = fileInput.files[0];
 
       if (!file) {
-        statusDiv.textContent = "MusicXMLファイルを選択してください。";
+        statusDiv.textContent = t("chooseFile");
         return;
       }
 
@@ -359,9 +656,10 @@
       formData.append("file", file);
 
       analyzeButton.disabled = true;
-      statusDiv.textContent = "解析中です。初回はRenderの起動に少し時間がかかる場合があります。";
+      statusDiv.textContent = t("analyzing");
       resultsDiv.innerHTML = "";
       scoreDiv.innerHTML = "";
+      lastResults = [];
 
       let data = null;
 
@@ -378,40 +676,48 @@
         data = await response.json();
 
       } catch (error) {
-        statusDiv.innerHTML = `<span class="error">通信エラー：APIに接続できません。</span>`;
+        statusDiv.innerHTML = `<span class="error">${escapeHtml(t("apiError"))}</span>`;
         console.error("API通信エラー:", error);
         analyzeButton.disabled = false;
         return;
       }
 
       if (!data.ok) {
-        statusDiv.innerHTML = `<span class="error">解析エラー：${escapeHtml(data.error)}</span>`;
+        statusDiv.innerHTML = `<span class="error">${escapeHtml(t("parseError") + data.error)}</span>`;
         console.error("解析エラー:", data.error);
         analyzeButton.disabled = false;
         return;
       }
 
+      lastResults = data.results || [];
+
       if (data.count === 0) {
-        statusDiv.textContent = "禁則は検出されませんでした。";
+        statusDiv.textContent = t("noIssues");
       } else {
-        statusDiv.textContent = `${data.count} 件の指摘が見つかりました。`;
-        renderResults(data.results);
+        statusDiv.textContent =
+          currentLang === "ja"
+            ? `${data.count} ${t("found")}`
+            : `${data.count} ${t("found")}`;
+
+        renderResults(lastResults);
       }
 
       if (data.original_xml) {
         try {
           await renderScore(data.original_xml, data.highlights || []);
         } catch (scoreError) {
-          statusDiv.innerHTML += `<br><span class="error">楽譜表示エラー：MusicXMLの表示に失敗しました。</span>`;
+          statusDiv.innerHTML += `<br><span class="error">${escapeHtml(t("scoreError"))}</span>`;
           console.error("楽譜表示エラー:", scoreError);
         }
       } else {
-        statusDiv.innerHTML += `<br><span class="error">original_xml が返っていません。Render側の main.py を確認してください。</span>`;
+        statusDiv.innerHTML += `<br><span class="error">${escapeHtml(t("noOriginalXml"))}</span>`;
         console.error("original_xmlなし:", data);
       }
 
       analyzeButton.disabled = false;
     });
+
+    setLanguage(currentLang);
   </script>
 </body>
 </html>
