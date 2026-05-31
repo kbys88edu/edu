@@ -107,7 +107,19 @@
 </head>
 
 <body>
-  <main>
+
+  <div id="loginScreen" class="card">
+  <h1>Harmony Checker</h1>
+  <p>このページはAdvanced受講者専用です。</p>
+  <input type="password" id="passwordInput" placeholder="パスワード" />
+  <br />
+  <button id="loginButton">入る</button>
+  <p id="loginMessage" class="error"></p>
+</div>
+  
+  <main id="app" style="display: none;">
+
+    
     <section class="card">
       <h1>Harmony Checker</h1>
       <p>
@@ -141,6 +153,31 @@
   </main>
 
   <script>
+
+    const ACCESS_PASSWORD = "advanced2026";
+
+const loginScreen = document.getElementById("loginScreen");
+const app = document.getElementById("app");
+const passwordInput = document.getElementById("passwordInput");
+const loginButton = document.getElementById("loginButton");
+const loginMessage = document.getElementById("loginMessage");
+
+loginButton.addEventListener("click", () => {
+  if (passwordInput.value === ACCESS_PASSWORD) {
+    sessionStorage.setItem("harmony_checker_access", "ok");
+    loginScreen.style.display = "none";
+    app.style.display = "block";
+  } else {
+    loginMessage.textContent = "パスワードが違います。";
+  }
+});
+
+if (sessionStorage.getItem("harmony_checker_access") === "ok") {
+  loginScreen.style.display = "none";
+  app.style.display = "block";
+}
+
+    
     const API_URL = "https://harmony-checker-backend.onrender.com/analyze";
 
     const fileInput = document.getElementById("fileInput");
