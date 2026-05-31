@@ -239,20 +239,6 @@
       return "";
     }
 
-    async function renderScore(xmlText) {
-      scoreDiv.innerHTML = "";
-
-      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(scoreDiv, {
-        autoResize: true,
-        backend: "svg",
-        drawTitle: false,
-        drawComposer: false
-      });
-
-      await osmd.load(xmlText);
-      osmd.render();
-    }
-
     function renderResults(results) {
       resultsDiv.innerHTML = "";
 
@@ -269,6 +255,95 @@
         `;
 
         resultsDiv.appendChild(div);
+      });
+    }
+
+    async function renderScore(xmlText, highlights) {
+      scoreDiv.innerHTML = "";
+
+      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(scoreDiv, {
+        autoResize: true,
+        backend: "svg",
+        drawTitle: false,
+        drawComposer: false
+      });
+
+      await osmd.load(xmlText);
+      osmd.render();
+
+      highlightNotesOnSvg(highlights || []);
+    }
+
+    function collectGraphicalNotesByStaff() {
+      const notesByStaff = [[], [], [], []];
+
+      const measureList =
+        osmd.graphic?.measureList ||
+        osmd.GraphicSheet?.MeasureList ||
+        [];
+
+      for (const verticalMeasures of measureList) {
+        for (let staffIndex = 0; staffIndex < Math.min(4, verticalMeasures.length); staffIndex++) {
+          const measure = verticalMeasures[staffIndex];
+
+          if (!measure || !measure.staffEntries) continue;
+
+          for (const staffEntry of measure.staffEntries) {
+            const graphicalVoiceEntries = staffEntry.graphicalVoiceEntries || [];
+
+            for (const graphicalVoiceEntry of graphicalVoiceEntries) {
+              const notes = graphicalVoiceEntry.notes || [];
+
+              for (const graphicalNote of notes) {
+                notesByStaff[staffIndex].push(graphicalNote);
+              }
+            }
+          }
+        }
+      }
+
+      return notesByStaff;
+    }
+
+    function colorSvgElementDeep(element, color) {
+      if (!element) return;
+
+      try {
+        element.style.fill = color;
+        element.style.stroke = color;
+
+        const children = element.querySelectorAll("*");
+        children.forEach((child) => {
+          child.style.fill = color;
+          child.style.stroke = color;
+        });
+      } catch (error) {
+        console.warn("SVG color error:", error);
+      }
+    }
+
+    function highlightNotesOnSvg(highlights) {
+      const notesByStaff = collectGraphicalNotesByStaff();
+
+      highlights.forEach((target) => {
+        const voiceIndex = target.voice_index;
+        const noteIndex = target.note_index;
+
+        const graphicalNote = notesByStaff[voiceIndex]?.[noteIndex];
+
+        if (!graphicalNote) {
+          console.warn("該当音符が見つかりません:", target);
+          return;
+        }
+
+        try {
+          if (typeof graphicalNote.getSVGGElement === "function") {
+            const svgElement = graphicalNote.getSVGGElement();
+            colorSvgElementDeep(svgElement, "#d00000");
+          }
+        } catch (error) {
+          console.warn("音符ハイライト失敗:", target, error);
+        }
       });
     }
 
@@ -323,16 +398,16 @@
         renderResults(data.results);
       }
 
-      if (data.annotated_xml) {
+      if (data.original_xml) {
         try {
-          await renderScore(data.annotated_xml);
+          await renderScore(data.original_xml, data.highlights || []);
         } catch (scoreError) {
           statusDiv.innerHTML += `<br><span class="error">楽譜表示エラー：MusicXMLの表示に失敗しました。</span>`;
           console.error("楽譜表示エラー:", scoreError);
         }
       } else {
-        statusDiv.innerHTML += `<br><span class="error">annotated_xml が返っていません。Render側の main.py を確認してください。</span>`;
-        console.error("annotated_xmlなし:", data);
+        statusDiv.innerHTML += `<br><span class="error">original_xml が返っていません。Render側の main.py を確認してください。</span>`;
+        console.error("original_xmlなし:", data);
       }
 
       analyzeButton.disabled = false;
